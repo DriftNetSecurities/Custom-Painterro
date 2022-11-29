@@ -1126,9 +1126,9 @@ class PainterroProc {
           if (this.colorPicker.handleKeyDown(e)) {
             return;
           }
-          if (this.handleClipCopyEvent(e)) {
-            return;
-          }
+          // if (this.handleClipCopyEvent(e)) {
+          //   return;
+          // }
           const evt = window.event ? event : e;
           if (this.handleToolEvent("handleKeyDown", evt)) {
             return;
