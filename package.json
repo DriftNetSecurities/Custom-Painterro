@@ -1,0 +1,65 @@
+{
+  "name": "painterro",
+  "version": "1.2.78",
+  "description": "HTML5 image editing widget (js paint plugin)",
+  "main": "build/painterro.commonjs2.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devforth/painterro"
+  },
+  "scripts": {
+    "prepare": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress",
+    "dev": "webpack serve --open --host 127.0.0.1 --port 3000",
+    "watch": "webpack --watch",
+    "buildfont": "node generate_font.js"
+  },
+  "keywords": [
+    "paint",
+    "paint plugin",
+    "image editor",
+    "paint widget",
+    "screenshots edit",
+    "js paint",
+    "canvas paint",
+    "image",
+    "js paint plugin",
+    "html5 canvas"
+  ],
+  "homepage": "https://hinty.io/devforth/js-paint-plugin-for-your-website/",
+  "bugs": {
+    "url": "https://github.com/devforth/painterro/issues",
+    "email": "contact@devforth.io"
+  },
+  "author": "Ivan Borshchov",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/preset-env": "^7.12.16",
+    "@vusion/webfonts-generator": "^0.8.0",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.2",
+    "es6-promise": "^4.2.8",
+    "eslint": "^4.1.1",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "ismobilejs": "^1.1.1",
+    "lodash": ">=4.17.13",
+    "mime": ">=1.4.1",
+    "raw-loader": "^0.5.1",
+    "string.prototype.repeat": "^0.2.0",
+    "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^5.1.4",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.21.2",
+    "webpack-bundle-analyzer": "^4.4.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^4.0.0-beta.0"
+  },
+  "dependencies": {
+    "core-js": "^3.11.0",
+    "dom-to-image": "^2.6.0"
+  }
+}
