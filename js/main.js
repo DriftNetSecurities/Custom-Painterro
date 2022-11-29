@@ -930,7 +930,7 @@ class PainterroProc {
   handleClipCopyEvent(evt) {
     let handled = false;
     const clipFormat = "image/png";
-    console.log("removed copy this should not run ?");
+
     // if (evt.keyCode === KEYS.c && (evt.ctrlKey || evt.metaKey)) {
     //   console.log("did this change ?");
     //   if (
@@ -1126,9 +1126,9 @@ class PainterroProc {
           if (this.colorPicker.handleKeyDown(e)) {
             return;
           }
-          // if (this.handleClipCopyEvent(e)) {
-          //   return;
-          // }
+          if (this.handleClipCopyEvent(e)) {
+            return;
+          }
           const evt = window.event ? event : e;
           if (this.handleToolEvent("handleKeyDown", evt)) {
             return;
