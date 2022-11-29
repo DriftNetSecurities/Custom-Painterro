@@ -1,4 +1,4 @@
-import { clearSelection, KEYS } from './utils';
+import { clearSelection, KEYS } from "./utils";
 
 export default class PainterroSelecter {
   constructor(main, selectionCallback) {
@@ -17,12 +17,14 @@ export default class PainterroSelecter {
   }
 
   static code() {
-    return '<div class="ptro-crp-rect" hidden>' +
+    return (
+      '<div class="ptro-crp-rect" hidden>' +
       '<div class="ptro-crp-l select-handler"></div><div class="ptro-crp-r select-handler"></div>' +
       '<div class="ptro-crp-t select-handler"></div><div class="ptro-crp-b select-handler"></div>' +
       '<div class="ptro-crp-tl select-handler"></div><div class="ptro-crp-tr select-handler"></div>' +
       '<div class="ptro-crp-bl select-handler"></div><div class="ptro-crp-br select-handler"></div>' +
-      '</div>';
+      "</div>"
+    );
   }
 
   activate() {
@@ -31,10 +33,16 @@ export default class PainterroSelecter {
   }
 
   doCrop() {
-    const imgData = this.ctx.getImageData(0, 0, this.main.size.w, this.main.size.h);
+    const imgData = this.ctx.getImageData(
+      0,
+      0,
+      this.main.size.w,
+      this.main.size.h
+    );
     this.main.resize(
       this.area.bottoml[0] - this.area.topl[0],
-      this.area.bottoml[1] - this.area.topl[1]);
+      this.area.bottoml[1] - this.area.topl[1]
+    );
     this.main.ctx.putImageData(imgData, -this.area.topl[0], -this.area.topl[1]);
     this.main.adjustSizeFull();
     this.main.worklog.captureState();
@@ -49,14 +57,15 @@ export default class PainterroSelecter {
 
     this.pixelizePixelSize = this.main.params.pixelizePixelSize;
 
-    if (this.pixelizePixelSize.slice(-1) === '%') {
-      this.pixelSize = (Math.min(size[0], size[1]) / (100.0 / this.pixelizePixelSize.slice(0, -1)));
-    } else if (this.pixelizePixelSize.slice(-2).toLowerCase() === 'px') {
+    if (this.pixelizePixelSize.slice(-1) === "%") {
+      this.pixelSize =
+        Math.min(size[0], size[1]) /
+        (100.0 / this.pixelizePixelSize.slice(0, -1));
+    } else if (this.pixelizePixelSize.slice(-2).toLowerCase() === "px") {
       this.pixelSize = this.pixelizePixelSize.slice(0, -2);
     } else {
       this.pixelSize = this.pixelizePixelSize;
     }
-
 
     if (this.pixelSize < 2) {
       this.pixelSize = 2; // prevent errors
@@ -85,7 +94,7 @@ export default class PainterroSelecter {
       for (let j = 0; j < size[1]; j += 1) {
         const ii = Math.floor(i / this.pixelSizeX);
         const jj = Math.floor(j / this.pixelSizeY);
-        const base = ((j * size[0]) + i) * 4;
+        const base = (j * size[0] + i) * 4;
         pxData[ii][jj][0] += data.data[base];
         pxData[ii][jj][1] += data.data[base + 1];
         pxData[ii][jj][2] += data.data[base + 2];
@@ -101,8 +110,8 @@ ${Math.round(pxData[i][j][0] / s)},
 ${Math.round(pxData[i][j][1] / s)}, 
 ${Math.round(pxData[i][j][2] / s)}, 
 ${Math.round(pxData[i][j][3] / s)})`;
-        const baseX = c[0] + (i * this.pixelSizeX);
-        const baseY = c[1] + (j * this.pixelSizeY);
+        const baseX = c[0] + i * this.pixelSizeX;
+        const baseY = c[1] + j * this.pixelSizeY;
         this.ctx.fillRect(baseX, baseY, this.pixelSizeX, this.pixelSizeY);
       }
     }
@@ -112,10 +121,17 @@ ${Math.round(pxData[i][j][3] / s)})`;
   doClearArea() {
     this.ctx.beginPath();
     this.ctx.clearRect(
-      this.area.topl[0], this.area.topl[1],
-      this.area.bottoml[0] - this.area.topl[0], this.area.bottoml[1] - this.area.topl[1]);
-    this.ctx.rect(this.area.topl[0], this.area.topl[1],
-      this.area.bottoml[0] - this.area.topl[0], this.area.bottoml[1] - this.area.topl[1]);
+      this.area.topl[0],
+      this.area.topl[1],
+      this.area.bottoml[0] - this.area.topl[0],
+      this.area.bottoml[1] - this.area.topl[1]
+    );
+    this.ctx.rect(
+      this.area.topl[0],
+      this.area.topl[1],
+      this.area.bottoml[0] - this.area.topl[0],
+      this.area.bottoml[1] - this.area.topl[1]
+    );
     this.ctx.fillStyle = this.main.currentBackground;
     this.ctx.fill();
     this.main.worklog.captureState();
@@ -129,25 +145,29 @@ ${Math.round(pxData[i][j][3] / s)})`;
     this.show();
     this.reCalcCropperCords();
     if (this.area.activated) {
-      this.areaionCallback(!this.imagePlaced &&
-        this.area.rect.clientWidth > 0 &&
-        this.area.rect.clientHeight > 0);
+      this.areaionCallback(
+        !this.imagePlaced &&
+          this.area.rect.clientWidth > 0 &&
+          this.area.rect.clientHeight > 0
+      );
     }
   }
 
   getScale() {
-    return this.canvas.clientWidth / this.canvas.getAttribute('width');
+    return this.canvas.clientWidth / this.canvas.getAttribute("width");
   }
 
   reCalcCropperCords() {
     const ratio = this.getScale();
     this.area.topl = [
-      Math.round(((this.rectLeft() - this.main.elLeft())) / ratio),
-      Math.round(((this.rectTop() - this.main.elTop())) / ratio)];
+      Math.round((this.rectLeft() - this.main.elLeft()) / ratio),
+      Math.round((this.rectTop() - this.main.elTop()) / ratio),
+    ];
 
     this.area.bottoml = [
-      Math.round(this.area.topl[0] + ((this.area.rect.clientWidth + 2) / ratio)),
-      Math.round(this.area.topl[1] + ((this.area.rect.clientHeight + 2) / ratio))];
+      Math.round(this.area.topl[0] + (this.area.rect.clientWidth + 2) / ratio),
+      Math.round(this.area.topl[1] + (this.area.rect.clientHeight + 2) / ratio),
+    ];
   }
 
   adjustPosition() {
@@ -158,12 +178,11 @@ ${Math.round(pxData[i][j][3] / s)})`;
     this.setLeft(this.area.topl[0] * ratio);
     this.setTop(this.area.topl[1] * ratio);
     this.setRight(0);
-    this.setRight(this.canvas.clientWidth - (this.area.bottoml[0] * ratio));
-    this.setBottom(this.canvas.clientHeight - (this.area.bottoml[1] * ratio));
+    this.setRight(this.canvas.clientWidth - this.area.bottoml[0] * ratio);
+    this.setBottom(this.canvas.clientHeight - this.area.bottoml[1] * ratio);
   }
 
   placeAt(l, t, r, b, img) {
-
     if (this.imagePlaced) {
       // for case when user inserts multiple images one after another without finishing placing them
       this.finishPlacing();
@@ -176,12 +195,12 @@ ${Math.round(pxData[i][j][3] / s)})`;
     this.setTop(t * scale);
     this.setRight(r * scale);
     this.setBottom(b * scale);
-    const tmpCan = document.createElement('canvas');
+    const tmpCan = document.createElement("canvas");
     tmpCan.width = img.naturalWidth;
     tmpCan.height = img.naturalHeight;
-    const tmpCtx = tmpCan.getContext('2d');
+    const tmpCtx = tmpCan.getContext("2d");
     tmpCtx.drawImage(img, 0, 0);
-    this.placedData = tmpCan.toDataURL('image/png');
+    this.placedData = tmpCan.toDataURL("image/png");
     const lowScale = 1000 / Math.max(img.naturalWidth, img.naturalHeight);
     if (lowScale >= 1) {
       this.placedDataLow = this.placedData;
@@ -190,9 +209,11 @@ ${Math.round(pxData[i][j][3] / s)})`;
       tmpCan.height = img.naturalHeight * lowScale;
       tmpCtx.scale(lowScale, lowScale);
       tmpCtx.drawImage(img, 0, 0);
-      this.placedDataLow = tmpCan.toDataURL('image/png');
+      this.placedDataLow = tmpCan.toDataURL("image/png");
     }
-    this.main.select.area.rect.style['background-image'] = `url(${this.placedData})`;
+    this.main.select.area.rect.style[
+      "background-image"
+    ] = `url(${this.placedData})`;
     this.show();
     this.reCalcCropperCords();
     this.imagePlaced = true;
@@ -202,18 +223,19 @@ ${Math.round(pxData[i][j][3] / s)})`;
 
   finishPlacing() {
     this.imagePlaced = false;
-    this.main.select.area.rect.style['background-image'] = 'none';
+    this.main.select.area.rect.style["background-image"] = "none";
     this.main.inserter.insert(
       this.area.topl[0],
       this.area.topl[1],
       this.area.bottoml[0] - this.area.topl[0],
-      this.area.bottoml[1] - this.area.topl[1]);
+      this.area.bottoml[1] - this.area.topl[1]
+    );
     this.area.activated = false;
   }
 
   cancelPlacing() {
     this.imagePlaced = false;
-    this.main.select.area.rect.style['background-image'] = 'none';
+    this.main.select.area.rect.style["background-image"] = "none";
     this.hide();
     this.main.worklog.undoState();
   }
@@ -233,10 +255,6 @@ ${Math.round(pxData[i][j][3] / s)})`;
     } else if (this.shown && evt.keyCode === KEYS.del) {
       this.doClearArea();
       return true;
-    } else if (evt.keyCode === KEYS.a && evt.ctrlKey) {
-      this.selectAll();
-      event.preventDefault();
-      return true;
     } else if (evt.keyCode === KEYS.esc && this.shown) {
       this.hide();
       return true;
@@ -245,18 +263,17 @@ ${Math.round(pxData[i][j][3] / s)})`;
   }
 
   handleMouseDown(event) {
-
     const mainClass = event.target.classList[0];
     const mousDownCallbacks = {
-      'ptro-crp-el': () => {
+      "ptro-crp-el": () => {
         if (this.area.activated) {
           if (this.imagePlaced) {
             this.finishPlacing();
           }
-          const x = (event.clientX - this.main.elLeft()) +
-            this.main.scroller.scrollLeft;
-          const y = (event.clientY - this.main.elTop()) +
-            this.main.scroller.scrollTop;
+          const x =
+            event.clientX - this.main.elLeft() + this.main.scroller.scrollLeft;
+          const y =
+            event.clientY - this.main.elTop() + this.main.scroller.scrollTop;
 
           this.setLeft(x);
           this.setTop(y);
@@ -269,46 +286,48 @@ ${Math.round(pxData[i][j][3] / s)})`;
           this.hide();
         }
       },
-      'ptro-crp-rect': () => {
+      "ptro-crp-rect": () => {
         this.area.moving = true;
-        this.area.xHandle = (event.clientX - this.rectLeft()) +
-          this.main.scroller.scrollLeft;
-        this.area.yHandle = (event.clientY - this.rectTop()) +
-          this.main.scroller.scrollTop;
+        this.area.xHandle =
+          event.clientX - this.rectLeft() + this.main.scroller.scrollLeft;
+        this.area.yHandle =
+          event.clientY - this.rectTop() + this.main.scroller.scrollTop;
       },
-      'ptro-crp-tr': () => {
+      "ptro-crp-tr": () => {
         this.area.resizingT = true;
         this.area.resizingR = true;
       },
-      'ptro-crp-br': () => {
+      "ptro-crp-br": () => {
         this.area.resizingB = true;
         this.area.resizingR = true;
       },
-      'ptro-crp-bl': () => {
+      "ptro-crp-bl": () => {
         this.area.resizingB = true;
         this.area.resizingL = true;
       },
-      'ptro-crp-tl': () => {
+      "ptro-crp-tl": () => {
         this.area.resizingT = true;
         this.area.resizingL = true;
       },
-      'ptro-crp-t': () => {
+      "ptro-crp-t": () => {
         this.area.resizingT = true;
       },
-      'ptro-crp-r': () => {
+      "ptro-crp-r": () => {
         this.area.resizingR = true;
       },
-      'ptro-crp-b': () => {
+      "ptro-crp-b": () => {
         this.area.resizingB = true;
       },
-      'ptro-crp-l': () => {
+      "ptro-crp-l": () => {
         this.area.resizingL = true;
       },
     };
     if (mainClass in mousDownCallbacks) {
       mousDownCallbacks[mainClass]();
       if (this.imagePlaced) {
-        this.main.select.area.rect.style['background-image'] = `url(${this.placedDataLow})`;
+        this.main.select.area.rect.style[
+          "background-image"
+        ] = `url(${this.placedDataLow})`;
       }
     }
   }
@@ -338,22 +357,34 @@ ${Math.round(pxData[i][j][3] / s)})`;
       return;
     }
     if (this.area.moving) {
-      let newLeft = (event.clientX - this.main.elLeft() - this.area.xHandle)
-        + this.main.scroller.scrollLeft;
+      let newLeft =
+        event.clientX -
+        this.main.elLeft() -
+        this.area.xHandle +
+        this.main.scroller.scrollLeft;
       if (newLeft < 0) {
         newLeft = 0;
-      } else if (newLeft + this.area.rect.clientWidth > this.area.el.clientWidth - 2) {
+      } else if (
+        newLeft + this.area.rect.clientWidth >
+        this.area.el.clientWidth - 2
+      ) {
         newLeft = this.area.el.clientWidth - this.area.rect.clientWidth - 2;
       }
       const hDelta = newLeft - this.left;
       this.setLeft(newLeft);
       this.setRight(this.right - hDelta);
 
-      let newTop = (event.clientY - this.main.elTop() - this.area.yHandle)
-        + this.main.scroller.scrollTop;
+      let newTop =
+        event.clientY -
+        this.main.elTop() -
+        this.area.yHandle +
+        this.main.scroller.scrollTop;
       if (newTop < 0) {
         newTop = 0;
-      } else if (newTop + this.area.rect.clientHeight > this.area.el.clientHeight - 2) {
+      } else if (
+        newTop + this.area.rect.clientHeight >
+        this.area.el.clientHeight - 2
+      ) {
         newTop = this.area.el.clientHeight - this.area.rect.clientHeight - 2;
       }
       const vDelta = newTop - this.top;
@@ -364,28 +395,36 @@ ${Math.round(pxData[i][j][3] / s)})`;
       let resizing = false;
       if (this.area.resizingL) {
         resizing = true;
-        const absLeft = this.fixCropperLeft(event.clientX + this.main.scroller.scrollLeft);
+        const absLeft = this.fixCropperLeft(
+          event.clientX + this.main.scroller.scrollLeft
+        );
         this.setLeft(absLeft - this.main.elLeft());
         this.reCalcCropperCords();
       }
       if (this.area.resizingR) {
         resizing = true;
-        const absRight = this.fixCropperRight(event.clientX + this.main.scroller.scrollLeft);
-        this.setRight(
-          (this.area.el.clientWidth + this.main.elLeft()) - absRight);
+        const absRight = this.fixCropperRight(
+          event.clientX + this.main.scroller.scrollLeft
+        );
+        this.setRight(this.area.el.clientWidth + this.main.elLeft() - absRight);
         this.reCalcCropperCords();
       }
       if (this.area.resizingT) {
         resizing = true;
-        const absTop = this.fixCropperTop(event.clientY + this.main.scroller.scrollTop);
+        const absTop = this.fixCropperTop(
+          event.clientY + this.main.scroller.scrollTop
+        );
         this.setTop(absTop - this.main.elTop());
         this.reCalcCropperCords();
       }
       if (this.area.resizingB) {
         resizing = true;
-        const absBottom = this.fixCropperBottom(event.clientY + this.main.scroller.scrollTop);
+        const absBottom = this.fixCropperBottom(
+          event.clientY + this.main.scroller.scrollTop
+        );
         this.setBottom(
-          (this.area.el.clientHeight + this.main.elTop()) - absBottom);
+          this.area.el.clientHeight + this.main.elTop() - absBottom
+        );
         this.reCalcCropperCords();
       }
       if (this.imagePlaced && !(event.ctrlKey || event.shiftKey)) {
@@ -406,7 +445,8 @@ ${Math.round(pxData[i][j][3] / s)})`;
           }
           this.bottomKeepRatio();
           this.reCalcCropperCords();
-        } if (this.area.resizingL) {
+        }
+        if (this.area.resizingL) {
           if (this.area.resizingT) {
             this.topKeepRatio();
           } else {
@@ -414,7 +454,8 @@ ${Math.round(pxData[i][j][3] / s)})`;
           }
           this.leftKeepRatio();
           this.reCalcCropperCords();
-        } if (this.area.resizingR) {
+        }
+        if (this.area.resizingR) {
           if (this.area.resizingT) {
             this.topKeepRatio();
           } else {
@@ -435,8 +476,8 @@ ${Math.round(pxData[i][j][3] / s)})`;
 
   leftKeepRatio() {
     const newW = this.area.rect.clientHeight * this.placedRatio;
-    const suggLeft = this.main.elLeft() +
-      (this.area.el.clientWidth - this.right - newW - 2);
+    const suggLeft =
+      this.main.elLeft() + (this.area.el.clientWidth - this.right - newW - 2);
     const absLeft = this.fixCropperLeft(suggLeft);
     this.setLeft(absLeft - this.main.elLeft());
   }
@@ -444,35 +485,39 @@ ${Math.round(pxData[i][j][3] / s)})`;
   topKeepRatio() {
     const newH = this.area.rect.clientWidth / this.placedRatio;
     const absTop = this.fixCropperTop(
-      this.main.elTop() + (this.area.el.clientHeight - this.bottom - newH - 2));
+      this.main.elTop() + (this.area.el.clientHeight - this.bottom - newH - 2)
+    );
     this.setTop(absTop - this.main.elTop());
   }
 
   bottomKeepRatio() {
     const newH = this.area.rect.clientWidth / this.placedRatio;
     const absBottom = this.fixCropperBottom(
-      this.main.elTop() +
-      this.top + newH + 2);
-    this.setBottom((this.area.el.clientHeight + this.main.elTop()) - absBottom);
+      this.main.elTop() + this.top + newH + 2
+    );
+    this.setBottom(this.area.el.clientHeight + this.main.elTop() - absBottom);
   }
 
   rightKeepRatio() {
     const newW = this.area.rect.clientHeight * this.placedRatio;
     const absRight = this.fixCropperRight(
-      this.main.elLeft() +
-      this.left + newW + 2);
-    this.setRight((this.area.el.clientWidth + this.main.elLeft()) - absRight);
+      this.main.elLeft() + this.left + newW + 2
+    );
+    this.setRight(this.area.el.clientWidth + this.main.elLeft() - absRight);
   }
 
   show() {
     this.shown = true;
-    this.area.rect.removeAttribute('hidden');
+    this.area.rect.removeAttribute("hidden");
   }
 
   handleMouseUp() {
     if (this.area.activated) {
-      this.areaionCallback(!this.imagePlaced && this.area.rect.clientWidth > 0
-        && this.area.rect.clientHeight > 0);
+      this.areaionCallback(
+        !this.imagePlaced &&
+          this.area.rect.clientWidth > 0 &&
+          this.area.rect.clientHeight > 0
+      );
     }
     this.area.moving = false;
     this.area.resizingT = false;
@@ -480,7 +525,9 @@ ${Math.round(pxData[i][j][3] / s)})`;
     this.area.resizingB = false;
     this.area.resizingL = false;
     if (this.imagePlaced) {
-      this.main.select.area.rect.style['background-image'] = `url(${this.placedData})`;
+      this.main.select.area.rect.style[
+        "background-image"
+      ] = `url(${this.placedData})`;
     }
   }
 
@@ -493,20 +540,24 @@ ${Math.round(pxData[i][j][3] / s)})`;
   }
 
   hide() {
-    this.area.rect.setAttribute('hidden', 'true');
+    this.area.rect.setAttribute("hidden", "true");
     this.shown = false;
     this.areaionCallback(false);
   }
 
   draw() {
     if (this.area.topl) {
-      const ratio = this.canvas.clientWidth / this.canvas.getAttribute('width');
+      const ratio = this.canvas.clientWidth / this.canvas.getAttribute("width");
       this.setLeft(this.area.topl[0] * ratio);
       this.setTop(this.area.topl[1] * ratio);
-      this.setRight(this.area.el.clientWidth - (
-        (this.area.bottoml[0] - this.area.topl[0]) * ratio));
-      this.setBottom(this.area.el.clientHeight - (
-        (this.area.bottoml[1] - this.area.topl[1]) * ratio));
+      this.setRight(
+        this.area.el.clientWidth -
+          (this.area.bottoml[0] - this.area.topl[0]) * ratio
+      );
+      this.setBottom(
+        this.area.el.clientHeight -
+          (this.area.bottoml[1] - this.area.topl[1]) * ratio
+      );
     }
   }
 
@@ -540,8 +591,7 @@ ${Math.round(pxData[i][j][3] / s)})`;
     if (newRight > absRightLimit) {
       return absRightLimit;
     } else if (newRight < this.rectLeft()) {
-      newRight = this.rectLeft() +
-        this.area.rect.clientWidth;
+      newRight = this.rectLeft() + this.area.rect.clientWidth;
       if (this.area.resizingR) {
         this.area.resizingR = false;
         this.area.resizingL = true;

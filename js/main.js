@@ -1132,34 +1132,38 @@ class PainterroProc {
           if (this.handleToolEvent("handleKeyDown", evt)) {
             return;
           }
-          if (
-            (evt.keyCode === KEYS.y && evt.ctrlKey) ||
-            (evt.keyCode === KEYS.z && evt.ctrlKey && evt.shiftKey)
-          ) {
-            this.worklog.redoState();
-            e.preventDefault();
-            if (this.params.userRedo) {
-              this.params.userRedo.call();
-            }
-          } else if (evt.keyCode === KEYS.z && evt.ctrlKey) {
-            this.worklog.undoState();
-            e.preventDefault();
-            if (this.params.userUndo) {
-              this.params.userUndo.call();
-            }
-          }
+          // removed undo and redo on keyboard clicks with ctrl
+
+          // if (
+          //   (evt.keyCode === KEYS.y && evt.ctrlKey) ||
+          //   (evt.keyCode === KEYS.z && evt.ctrlKey && evt.shiftKey)
+          // ) {
+          //   this.worklog.redoState();
+          //   e.preventDefault();
+          //   if (this.params.userRedo) {
+          //     this.params.userRedo.call();
+          //   }
+          // } else if (evt.keyCode === KEYS.z && evt.ctrlKey) {
+          //   this.worklog.undoState();
+          //   e.preventDefault();
+          //   if (this.params.userUndo) {
+          //     this.params.userUndo.call();
+          //   }
+          // }
           if (this.toolByKeyCode[event.keyCode]) {
             this.getBtnEl(this.toolByKeyCode[event.keyCode]).click();
             e.stopPropagation();
             e.preventDefault();
           }
-          if (this.saveBtn) {
-            if (evt.keyCode === KEYS.s && evt.ctrlKey) {
-              if (this.initText) this.wrapper.click();
-              this.save();
-              evt.preventDefault();
-            }
-          }
+
+          /// removed ctrl / cmd s for saving
+          // if (this.saveBtn) {
+          //   if (evt.keyCode === KEYS.s && evt.ctrlKey) {
+          //     if (this.initText) this.wrapper.click();
+          //     this.save();
+          //     evt.preventDefault();
+          //   }
+          // }
         }
       },
       paste: (event) => {
