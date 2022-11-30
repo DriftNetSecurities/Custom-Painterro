@@ -87,6 +87,7 @@ export default class PaintBucket {
 
   // returns true if the current pixel's color matches the clicked on color.
   matchStartColor(pixelPos) {
+    console.log(pixelPos);
     var pixelColor = this.getPixelColor(this.colorLayerData, pixelPos);
     var v = this.matchClickedColor(
       pixelColor.r,
@@ -99,6 +100,7 @@ export default class PaintBucket {
 
   matchClickedColor(r, g, b, a) {
     const limit = this.main.params.bucketSensivity;
+    console.log(bucketSensivity);
     var matchedR = Math.abs(r - this.clickedOnColor.r) < limit;
     var matchedG = Math.abs(g - this.clickedOnColor.g) < limit;
     var matchedB = Math.abs(b - this.clickedOnColor.b) < limit;
@@ -145,6 +147,7 @@ export default class PaintBucket {
       pixelStack = [[startX, startY]];
 
     while (pixelStack.length) {
+      console.log(pixelStack);
       newPos = pixelStack.pop();
       x = newPos[0];
       y = newPos[1];
@@ -152,7 +155,7 @@ export default class PaintBucket {
       // Get current pixel position
       pixelPos = (y * this.canvasWidth + x) * 4;
       const curColor = HexToRGB(this.color);
-
+      console.log(curColor);
       // Go up as long as the color matches and are inside the canvas
       while (y >= drawingBoundTop && this.matchStartColor(pixelPos)) {
         y -= 1;
