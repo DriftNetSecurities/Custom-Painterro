@@ -66,13 +66,13 @@ class PainterroProc {
         },
       },
       // {
-      //   name: "pixelize",
-      //   hotkey: "p",
-      //   activate: () => {
-      //     if (this.initText) this.wrapper.click();
-      //     this.select.doPixelize();
-      //     this.closeActiveTool();
-      //   },
+      // name: "pixelize",
+      // hotkey: "p",
+      // activate: () => {
+      //   if (this.initText) this.wrapper.click();
+      //   this.select.doPixelize();
+      //   this.closeActiveTool();
+      // },
       // },
       {
         name: "line",
