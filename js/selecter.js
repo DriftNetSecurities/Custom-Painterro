@@ -48,75 +48,75 @@ export default class PainterroSelecter {
     this.main.worklog.captureState();
   }
 
-  doPixelize() {
-    const c = this.area.topl;
-    const size = [
-      this.area.bottoml[0] - c[0], // width
-      this.area.bottoml[1] - c[1],
-    ];
+  //   doPixelize() {
+  //     const c = this.area.topl;
+  //     const size = [
+  //       this.area.bottoml[0] - c[0], // width
+  //       this.area.bottoml[1] - c[1],
+  //     ];
 
-    this.pixelizePixelSize = this.main.params.pixelizePixelSize;
+  //     this.pixelizePixelSize = this.main.params.pixelizePixelSize;
 
-    if (this.pixelizePixelSize.slice(-1) === "%") {
-      this.pixelSize =
-        Math.min(size[0], size[1]) /
-        (100.0 / this.pixelizePixelSize.slice(0, -1));
-    } else if (this.pixelizePixelSize.slice(-2).toLowerCase() === "px") {
-      this.pixelSize = this.pixelizePixelSize.slice(0, -2);
-    } else {
-      this.pixelSize = this.pixelizePixelSize;
-    }
+  //     if (this.pixelizePixelSize.slice(-1) === "%") {
+  //       this.pixelSize =
+  //         Math.min(size[0], size[1]) /
+  //         (100.0 / this.pixelizePixelSize.slice(0, -1));
+  //     } else if (this.pixelizePixelSize.slice(-2).toLowerCase() === "px") {
+  //       this.pixelSize = this.pixelizePixelSize.slice(0, -2);
+  //     } else {
+  //       this.pixelSize = this.pixelizePixelSize;
+  //     }
 
-    if (this.pixelSize < 2) {
-      this.pixelSize = 2; // prevent errors
-    }
+  //     if (this.pixelSize < 2) {
+  //       this.pixelSize = 2; // prevent errors
+  //     }
 
-    if (size[1] < size[0]) {
-      this.pixelSizeY = this.pixelSize;
-      const desiredHorPxs = Math.round(size[0] / this.pixelSizeY);
-      this.pixelSizeX = (size[0] * 1.0) / desiredHorPxs;
-    } else {
-      this.pixelSizeX = this.pixelSize;
-      const desiredVerPxs = Math.round(size[1] / this.pixelSizeX);
-      this.pixelSizeY = (size[1] * 1.0) / desiredVerPxs;
-    }
-    const pxData = [];
-    const pxSize = [size[0] / this.pixelSizeX, size[1] / this.pixelSizeY];
-    for (let i = 0; i < pxSize[0]; i += 1) {
-      const row = [];
-      for (let j = 0; j < pxSize[1]; j += 1) {
-        row.push([0, 0, 0, 0, 0]);
-      }
-      pxData.push(row);
-    }
-    const data = this.ctx.getImageData(c[0], c[1], size[0], size[1]);
-    for (let i = 0; i < size[0]; i += 1) {
-      for (let j = 0; j < size[1]; j += 1) {
-        const ii = Math.floor(i / this.pixelSizeX);
-        const jj = Math.floor(j / this.pixelSizeY);
-        const base = (j * size[0] + i) * 4;
-        pxData[ii][jj][0] += data.data[base];
-        pxData[ii][jj][1] += data.data[base + 1];
-        pxData[ii][jj][2] += data.data[base + 2];
-        pxData[ii][jj][3] += data.data[base + 3];
-        pxData[ii][jj][4] += 1;
-      }
-    }
-    for (let i = 0; i < pxSize[0]; i += 1) {
-      for (let j = 0; j < pxSize[1]; j += 1) {
-        const s = pxData[i][j][4];
-        this.ctx.fillStyle = `rgba(
-${Math.round(pxData[i][j][0] / s)}, 
-${Math.round(pxData[i][j][1] / s)}, 
-${Math.round(pxData[i][j][2] / s)}, 
-${Math.round(pxData[i][j][3] / s)})`;
-        const baseX = c[0] + i * this.pixelSizeX;
-        const baseY = c[1] + j * this.pixelSizeY;
-        this.ctx.fillRect(baseX, baseY, this.pixelSizeX, this.pixelSizeY);
-      }
-    }
-    this.main.worklog.captureState();
-  }
+  //     if (size[1] < size[0]) {
+  //       this.pixelSizeY = this.pixelSize;
+  //       const desiredHorPxs = Math.round(size[0] / this.pixelSizeY);
+  //       this.pixelSizeX = (size[0] * 1.0) / desiredHorPxs;
+  //     } else {
+  //       this.pixelSizeX = this.pixelSize;
+  //       const desiredVerPxs = Math.round(size[1] / this.pixelSizeX);
+  //       this.pixelSizeY = (size[1] * 1.0) / desiredVerPxs;
+  //     }
+  //     const pxData = [];
+  //     const pxSize = [size[0] / this.pixelSizeX, size[1] / this.pixelSizeY];
+  //     for (let i = 0; i < pxSize[0]; i += 1) {
+  //       const row = [];
+  //       for (let j = 0; j < pxSize[1]; j += 1) {
+  //         row.push([0, 0, 0, 0, 0]);
+  //       }
+  //       pxData.push(row);
+  //     }
+  //     const data = this.ctx.getImageData(c[0], c[1], size[0], size[1]);
+  //     for (let i = 0; i < size[0]; i += 1) {
+  //       for (let j = 0; j < size[1]; j += 1) {
+  //         const ii = Math.floor(i / this.pixelSizeX);
+  //         const jj = Math.floor(j / this.pixelSizeY);
+  //         const base = (j * size[0] + i) * 4;
+  //         pxData[ii][jj][0] += data.data[base];
+  //         pxData[ii][jj][1] += data.data[base + 1];
+  //         pxData[ii][jj][2] += data.data[base + 2];
+  //         pxData[ii][jj][3] += data.data[base + 3];
+  //         pxData[ii][jj][4] += 1;
+  //       }
+  //     }
+  //     for (let i = 0; i < pxSize[0]; i += 1) {
+  //       for (let j = 0; j < pxSize[1]; j += 1) {
+  //         const s = pxData[i][j][4];
+  //         this.ctx.fillStyle = `rgba(
+  // ${Math.round(pxData[i][j][0] / s)},
+  // ${Math.round(pxData[i][j][1] / s)},
+  // ${Math.round(pxData[i][j][2] / s)},
+  // ${Math.round(pxData[i][j][3] / s)})`;
+  //         const baseX = c[0] + i * this.pixelSizeX;
+  //         const baseY = c[1] + j * this.pixelSizeY;
+  //         this.ctx.fillRect(baseX, baseY, this.pixelSizeX, this.pixelSizeY);
+  //       }
+  //     }
+  //     this.main.worklog.captureState();
+  //   }
 
   doClearArea() {
     this.ctx.beginPath();

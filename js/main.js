@@ -65,15 +65,15 @@ class PainterroProc {
           this.closeActiveTool();
         },
       },
-      {
-        name: "pixelize",
-        hotkey: "p",
-        activate: () => {
-          if (this.initText) this.wrapper.click();
-          this.select.doPixelize();
-          this.closeActiveTool();
-        },
-      },
+      // {
+      // name: "pixelize",
+      // hotkey: "p",
+      // activate: () => {
+      //   if (this.initText) this.wrapper.click();
+      //   this.select.doPixelize();
+      //   this.closeActiveTool();
+      // },
+      // },
       {
         name: "line",
         hotkey: "l",
@@ -662,7 +662,7 @@ class PainterroProc {
     this.zoomHelper = new ZoomHelper(this);
     this.zoomButtonActive = false;
     this.select = new PainterroSelecter(this, (notEmpty) => {
-      [this.toolByName.crop, this.toolByName.pixelize].forEach((c) => {
+      [this.toolByName.crop].forEach((c) => {
         this.setToolEnabled(c, notEmpty);
       });
     });
@@ -930,7 +930,7 @@ class PainterroProc {
   handleClipCopyEvent(evt) {
     let handled = false;
     const clipFormat = "image/png";
-    console.log("removed copy this should not run ?");
+
     // if (evt.keyCode === KEYS.c && (evt.ctrlKey || evt.metaKey)) {
     //   console.log("did this change ?");
     //   if (
@@ -1126,9 +1126,9 @@ class PainterroProc {
           if (this.colorPicker.handleKeyDown(e)) {
             return;
           }
-          // if (this.handleClipCopyEvent(e)) {
-          //   return;
-          // }
+          if (this.handleClipCopyEvent(e)) {
+            return;
+          }
           const evt = window.event ? event : e;
           if (this.handleToolEvent("handleKeyDown", evt)) {
             return;
