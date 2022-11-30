@@ -662,7 +662,7 @@ class PainterroProc {
     this.zoomHelper = new ZoomHelper(this);
     this.zoomButtonActive = false;
     this.select = new PainterroSelecter(this, (notEmpty) => {
-      [this.toolByName.crop, this.toolByName.pixelize].forEach((c) => {
+      [this.toolByName.crop].forEach((c) => {
         this.setToolEnabled(c, notEmpty);
       });
     });
