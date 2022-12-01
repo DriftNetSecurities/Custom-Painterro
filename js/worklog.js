@@ -115,7 +115,7 @@ export default class WorkLog {
       this.clearedCount = 0;
     } else {
       console.log(this.current);
-      gridState.preprevGridv = this.current;
+      gridState.prevGrid = this.current;
       gridState.prevGridCount = this.current.prevCount + 1;
       this.current.next = gridState;
     }
