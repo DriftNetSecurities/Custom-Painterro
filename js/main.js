@@ -67,7 +67,7 @@ class PainterroProc {
       },
       {
         name: "SSSSSSSSSSSSS",
-        hotkey: "sss",
+        hotkey: "t",
         activate: () => {
           this.select.testFunc();
         },
@@ -870,6 +870,7 @@ class PainterroProc {
   }
   testFunc() {
     console.log("test function ");
+    return "<div>hello div </div>";
   }
   save() {
     if (this.saving) {
