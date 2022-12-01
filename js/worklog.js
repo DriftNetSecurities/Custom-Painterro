@@ -145,7 +145,7 @@ export default class WorkLog {
       let currentToolName = this.current.activeToolName;
       this.current = this.current.prev;
       this.currentGrid = this.currentGrid;
-      this.applyState(this.current);
+      this.applyState(this.currentGrid);
       this.changed(false);
       if (currentToolName) {
         this.main.closeActiveTool(true);
