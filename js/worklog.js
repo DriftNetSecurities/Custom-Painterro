@@ -1,6 +1,7 @@
 export default class WorkLog {
   constructor(main, changedHandler) {
     this.main = main;
+    this.gridMain = main;
     this.current = null;
     this.currentGrid = null;
     this.changedHandler = changedHandler;
@@ -138,12 +139,19 @@ export default class WorkLog {
     this.main.adjustSizeFull();
     this.main.select.hide();
   }
-
+  applyGridState(state) {
+    this.gridMain.resize(state.sizew, state.sizeh);
+    this.gridMain.ctx.putImageData(state.data, 0, 0);
+    this.gridMain.adjustSizeFull();
+    this.gridMain.select.hide();
+    console.log(this.gridMain);
+  }
   undoState() {
     if (this.current.prev !== null) {
       let currentToolName = this.current.activeToolName;
       this.current = this.current.prev;
-      this.applyState(this.currentGrid);
+      this.applyGridState(this.currentGrid);
+      this.applyState(this.current);
       this.changed(false);
       if (currentToolName) {
         this.main.closeActiveTool(true);
