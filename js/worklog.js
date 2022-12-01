@@ -42,7 +42,10 @@ export default class WorkLog {
   }
 
   changed(initial) {
-    if (this.current.prevCount - this.clearedCount > this.main.params.worklogLimit) {
+    if (
+      this.current.prevCount - this.clearedCount >
+      this.main.params.worklogLimit
+    ) {
       this.first = this.first.next;
       this.first.prev = null;
       this.clearedCount += 1;
@@ -57,7 +60,9 @@ export default class WorkLog {
   }
 
   captureState(initial) {
-    let activeToolName = this.main.activeTool ? this.main.activeTool.name : null;
+    let activeToolName = this.main.activeTool
+      ? this.main.activeTool.name
+      : null;
     if (this.main.params.NON_SELECTABLE_TOOLS.includes(activeToolName)) {
       activeToolName = this.main.defaultTool.name;
     }
@@ -101,15 +106,16 @@ export default class WorkLog {
     if (this.current.prev !== null) {
       let currentToolName = this.current.activeToolName;
       this.current = this.current.prev;
+      console.log(this.current);
       this.applyState(this.current);
       this.changed(false);
       if (currentToolName) {
         this.main.closeActiveTool(true);
-        this.main.setActiveTool(this.main.toolByName[currentToolName])
+        this.main.setActiveTool(this.main.toolByName[currentToolName]);
       } else {
         this.main.closeActiveTool();
       }
-      
+
       if (this.main.params.onUndo) {
         this.main.params.onUndo(this.current);
       }
@@ -118,7 +124,6 @@ export default class WorkLog {
 
   redoState() {
     if (this.current.next !== null) {
-      
       this.current = this.current.next;
       this.applyState(this.current);
       this.changed(false);
@@ -127,7 +132,7 @@ export default class WorkLog {
 
       if (nextToolName) {
         this.main.closeActiveTool(true);
-        this.main.setActiveTool(this.main.toolByName[nextToolName])
+        this.main.setActiveTool(this.main.toolByName[nextToolName]);
       } else {
         this.main.closeActiveTool();
       }
