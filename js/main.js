@@ -852,7 +852,7 @@ class PainterroProc {
     return this.getElemByIdSafe(tool.buttonId);
   }
 
-  function() {
+  gridFunction() {
     let canvas, ctx;
 
     // draws a grid
