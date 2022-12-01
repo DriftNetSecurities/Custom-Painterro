@@ -965,7 +965,7 @@ class PainterroProc {
 
     this.drawMinorGridLines(cnv, gridOptions.minorLines);
     this.drawMajorGridLines(cnv, gridOptions.majorLines);
-    this.worklog.captureState();
+    this.worklog.captureGrid();
     return;
   }
 

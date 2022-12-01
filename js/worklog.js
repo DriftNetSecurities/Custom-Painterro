@@ -97,6 +97,33 @@ export default class WorkLog {
     this.changed(initial);
   }
 
+  captureGrid(initial) {
+    console.log(initial, "capture griddy");
+    let activeToolName = "grid";
+
+    const state = {
+      sizew: this.main.size.w,
+      sizeh: this.main.size.h,
+      activeToolName,
+      data: this.ctx.getImageData(0, 0, this.main.size.w, this.main.size.h),
+    };
+
+    if (this.current === null) {
+      state.prevGrid = null;
+      state.prevGridCount = 0;
+      this.firstGrid = state;
+      this.clearedCount = 0;
+    } else {
+      console.log(this.current);
+      state.preprevGridv = this.current;
+      state.prevGridCount = this.current.prevCount + 1;
+      this.current.next = state;
+    }
+    state.next = null;
+    this.current = state;
+    this.changed(initial);
+  }
+
   reCaptureState() {
     if (this.current.prev !== null) {
       this.current = this.current.prev;
