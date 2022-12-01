@@ -911,8 +911,8 @@ class PainterroProc {
       },
     };
 
-    drawGridLines(cnv, gridOptions.minorLines);
-    drawGridLines(cnv, gridOptions.majorLines);
+    this.drawGridLines(cnv, gridOptions.minorLines);
+    this.drawGridLines(cnv, gridOptions.majorLines);
 
     return;
   }
