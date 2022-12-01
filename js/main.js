@@ -471,6 +471,14 @@ class PainterroProc {
         },
       },
       {
+        name: "test",
+        right: true,
+        activate: () => {
+          if (this.initText) this.wrapper.click();
+          this.testFunc();
+        },
+      },
+      {
         name: "close",
         hotkey: () => (this.params.hideByEsc ? "esc" : false),
         right: true,
@@ -848,7 +856,10 @@ class PainterroProc {
   getBtnEl(tool) {
     return this.getElemByIdSafe(tool.buttonId);
   }
-
+  testFunc() {
+    console.log("test function ");
+    return <div>hello this is a test function </div>;
+  }
   save() {
     if (this.saving) {
       return this;
