@@ -109,20 +109,20 @@ export default class WorkLog {
       data: this.ctx.getImageData(0, 0, this.main.size.w, this.main.size.h),
     };
 
-    if (this.current === null) {
+    if (this.currentGrid === null) {
       gridState.prevGrid = null;
       gridState.prevGridCount = 0;
       this.firstGrid = gridState;
       this.clearedCount = 0;
     } else {
-      console.log(this.current);
-      gridState.prevGrid = this.current;
-      gridState.prevGridCount = this.current.prevCount + 1;
-      this.current.next = gridState;
+      console.log(this.currentGrid);
+      gridState.prevGrid = this.currentGrid;
+      gridState.prevGridCount = this.currentGrid.prevCount + 1;
+      this.currentGrid.next = gridState;
     }
     console.log(gridState);
     gridState.next = null;
-    this.current = gridState;
+    this.currentGrid = gridState;
     this.changed(initial);
   }
 
@@ -141,11 +141,9 @@ export default class WorkLog {
   }
 
   undoState() {
-    console.log(this.current);
-    if (this.current.prev !== null && this.current) {
+    if (this.current.prev !== null) {
       let currentToolName = this.current.activeToolName;
-      this.current = this?.current?.prev;
-      console.log(this.current);
+      this.current = this.current.prev;
       this.applyState(this.current);
       this.changed(false);
       if (currentToolName) {
