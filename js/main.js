@@ -899,7 +899,7 @@ class PainterroProc {
       ctx.restore();
     }
 
-    function init() {
+    function loadGrid() {
       // set our config variables
       canvas = document.getElementById(`${this.id}`);
       ctx = canvas.getContext("2d");
@@ -907,7 +907,7 @@ class PainterroProc {
       createGrid();
     }
 
-    document.addEventListener("DOMContentLoaded", init);
+    document.addEventListener("DOMContentLoaded", loadGrid);
   }
 
   save() {
