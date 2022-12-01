@@ -29,6 +29,10 @@ import PaintBucket from "./paintBucket";
 
 class PainterroProc {
   constructor(params) {
+    this.majorXCords = [];
+    this.majorYCords = [];
+    this.minorXCords = [];
+    this.minorYCords = [];
     addDocumentObjectHelpers();
 
     this.getElemByIdSafe = (id) => {
@@ -862,7 +866,7 @@ class PainterroProc {
   getBtnEl(tool) {
     return this.getElemByIdSafe(tool.buttonId);
   }
-  drawGridLines(cnv, lineOptions) {
+  drawMinorGridLines(cnv, lineOptions) {
     var iWidth = cnv.width;
     var iHeight = cnv.height;
 
@@ -876,8 +880,8 @@ class PainterroProc {
     var i = null;
     var x = null;
     var y = null;
-    let coordinatesXArr = [];
-    let coordinatesYArr = [];
+    let minorXCords = [];
+    let minorYCords = [];
     iCount = Math.floor(iWidth / lineOptions.separation);
 
     for (i = 1; i <= iCount; i++) {
@@ -885,7 +889,7 @@ class PainterroProc {
       ctx.moveTo(x, 0);
       ctx.lineTo(x, iHeight);
       ctx.stroke();
-      coordinatesXArr.push(x);
+      minorXCords.push(x);
     }
 
     iCount = Math.floor(iHeight / lineOptions.separation);
@@ -895,10 +899,53 @@ class PainterroProc {
       ctx.moveTo(0, y);
       ctx.lineTo(iWidth, y);
       ctx.stroke();
-      coordinatesYArr.push(y);
+      minorYCords.push(y);
     }
-    console.log(coordinatesXArr);
-    console.log(coordinatesYArr);
+    console.log(ctx, "minor");
+    console.log(minorXCords);
+    console.log(minorYCords);
+    ctx.closePath();
+
+    return;
+  }
+  drawMajorGridLines(cnv, lineOptions) {
+    var iWidth = cnv.width;
+    var iHeight = cnv.height;
+
+    var ctx = cnv.getContext("2d");
+    ctx.strokeStyle = lineOptions.color;
+    ctx.strokeWidth = 1;
+
+    ctx.beginPath();
+
+    var iCount = null;
+    var i = null;
+    var x = null;
+    var y = null;
+    let tempMajorXCords = this.majorXCords;
+    let tempMajorYCords = this.majorYCords;
+    iCount = Math.floor(iWidth / lineOptions.separation);
+
+    for (i = 1; i <= iCount; i++) {
+      x = i * lineOptions.separation;
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, iHeight);
+      ctx.stroke();
+      tempMajorXCords.push(x);
+    }
+
+    iCount = Math.floor(iHeight / lineOptions.separation);
+
+    for (i = 1; i <= iCount; i++) {
+      y = i * lineOptions.separation;
+      ctx.moveTo(0, y);
+      ctx.lineTo(iWidth, y);
+      ctx.stroke();
+      tempMajorYCords.push(y);
+    }
+    console.log(ctx);
+    console.log(tempMajorXCords);
+    console.log(tempMajorYCords);
     ctx.closePath();
 
     return;
@@ -918,8 +965,8 @@ class PainterroProc {
       },
     };
 
-    this.drawGridLines(cnv, gridOptions.minorLines);
-    this.drawGridLines(cnv, gridOptions.majorLines);
+    this.drawMinorGridLines(cnv, gridOptions.minorLines);
+    this.drawMajorGridLines(cnv, gridOptions.majorLines);
 
     return;
   }
