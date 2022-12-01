@@ -26,6 +26,7 @@ import Inserter from "./inserter";
 import Settings from "./settings";
 import ControlBuilder from "./controlbuilder";
 import PaintBucket from "./paintBucket";
+import { Script } from "vm";
 
 class PainterroProc {
   constructor(params) {
@@ -601,10 +602,8 @@ class PainterroProc {
       '<div class="ptro-scroller">' +
       '<div class="ptro-center-table">' +
       '<div class="ptro-center-tablecell">' +
-      `<div>${this.drawGrid()}</div>` +
-      `<canvas  class="gridCanvas"
-			:width="width"
-			:height="height" id="${this.id}-canvas"></canvas>` +
+      '<div">THIS IS A TEST INNER GRID MAYBE GOES HERE</div>' +
+      `<canvas id="${this.id}-canvas"></canvas>` +
       `<div class="ptro-substrate"></div>${cropper}` +
       "</div>" +
       "</div>" +
@@ -853,38 +852,62 @@ class PainterroProc {
     return this.getElemByIdSafe(tool.buttonId);
   }
 
-  drawGrid() {
-    let ctx = this.$el.getContext("2d");
+  function() {
+    let canvas, ctx;
 
-    let s = 28;
-    let nX = Math.floor(this.width / s) - 2;
-    let nY = Math.floor(this.height / s) - 2;
-    let pX = this.width - nX * s;
-    let pY = this.height - nY * s;
+    // draws a grid
+    function createGrid() {
+      // draw a line every *step* pixels
+      const step = 50;
 
-    // Bonus code for choosing nX instead of s
-    /* let nX = 20
-				let s = Math.floor(this.width / (nX + 2))
-				let pX = this.width - nX * s
-				let nY = Math.floor((this.height - pX) / (this.width - pX) * nX)
-				let pY = this.height - nY * s */
+      // our end points
+      const width = canvas.width;
+      const height = canvas.height;
 
-    let pL = Math.ceil(pX / 2) - 0.5;
-    let pT = Math.ceil(pY / 2) - 0.5;
-    let pR = this.width - nX * s - pL;
-    let pB = this.height - nY * s - pT;
+      // set our styles
+      ctx.save();
+      ctx.strokeStyle = "gray"; // line colors
+      ctx.fillStyle = "black"; // text color
+      ctx.font = "14px Monospace";
+      ctx.lineWidth = 0.35;
 
-    ctx.strokeStyle = "lightgrey";
-    ctx.beginPath();
-    for (var x = pL; x <= this.width - pR; x += s) {
-      ctx.moveTo(x, pT);
-      ctx.lineTo(x, this.height - pB);
+      // draw vertical from X to Height
+      for (let x = 0; x < width; x += step) {
+        // draw vertical line
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, height);
+        ctx.stroke();
+
+        // draw text
+        ctx.fillText(x, x, 12);
+      }
+
+      // draw horizontal from Y to Width
+      for (let y = 0; y < height; y += step) {
+        // draw horizontal line
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
+
+        // draw text
+        ctx.fillText(y, 0, y);
+      }
+
+      // restore the styles from before this function was called
+      ctx.restore();
     }
-    for (var y = pT; y <= this.height - pB; y += s) {
-      ctx.moveTo(pL, y);
-      ctx.lineTo(this.width - pR, y);
+
+    function init() {
+      // set our config variables
+      canvas = document.getElementById(`${this.id}`);
+      ctx = canvas.getContext("2d");
+
+      createGrid();
     }
-    ctx.stroke();
+
+    document.addEventListener("DOMContentLoaded", init);
   }
 
   save() {
