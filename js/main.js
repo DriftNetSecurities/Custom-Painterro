@@ -859,26 +859,6 @@ class PainterroProc {
   getBtnEl(tool) {
     return this.getElemByIdSafe(tool.buttonId);
   }
-  drawGrid() {
-    var cnv = document.getElementById(this.id);
-
-    var gridOptions = {
-      minorLines: {
-        separation: 5,
-        color: "#00FF00",
-      },
-      majorLines: {
-        separation: 30,
-        color: "#FF0000",
-      },
-    };
-
-    drawGridLines(cnv, gridOptions.minorLines);
-    drawGridLines(cnv, gridOptions.majorLines);
-
-    return;
-  }
-
   drawGridLines(cnv, lineOptions) {
     var iWidth = cnv.width;
     var iHeight = cnv.height;
@@ -914,6 +894,25 @@ class PainterroProc {
     }
 
     ctx.closePath();
+
+    return;
+  }
+  drawGrid() {
+    var cnv = document.getElementById(this.id);
+
+    var gridOptions = {
+      minorLines: {
+        separation: 5,
+        color: "#00FF00",
+      },
+      majorLines: {
+        separation: 30,
+        color: "#FF0000",
+      },
+    };
+
+    drawGridLines(cnv, gridOptions.minorLines);
+    drawGridLines(cnv, gridOptions.majorLines);
 
     return;
   }
