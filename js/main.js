@@ -906,7 +906,7 @@ class PainterroProc {
     var gridOptions = {
       minorLines: {
         separation: 5,
-        color: "#FFFFFF",
+        color: "transparent",
       },
       majorLines: {
         separation: 50,
