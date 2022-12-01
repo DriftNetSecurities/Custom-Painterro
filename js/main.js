@@ -559,7 +559,7 @@ class PainterroProc {
       this.holderEl.id = this.holderId;
       this.holderEl.className = "ptro-holder-wrapper";
       document.body.appendChild(this.holderEl);
-      this.holderEl.innerHTML = `<div id='${this.id}' class="ptro-holder"></div>`;
+      this.holderEl.innerHTML = `<div id='${this.id}' class="ptro-holder">  '<div">THIS IS A TEST VERY TOPPPP</div>' </div>`;
       this.baseEl = this.getElemByIdSafe(this.id);
     } else {
       this.baseEl = this.getElemByIdSafe(this.id);
@@ -601,6 +601,7 @@ class PainterroProc {
       '<div class="ptro-scroller">' +
       '<div class="ptro-center-table">' +
       '<div class="ptro-center-tablecell">' +
+      '<div">THIS IS A TEST INNER GRID MAYBE GOES HERE</div>' +
       `<canvas id="${this.id}-canvas"></canvas>` +
       `<div class="ptro-substrate"></div>${cropper}` +
       "</div>" +
@@ -622,6 +623,7 @@ class PainterroProc {
     this.fileInputId = genId();
     this.bar.innerHTML =
       `<div>${bar}` +
+      '<div">THIS IS A TEST BANNER HTML</div>' +
       '<span class="ptro-tool-controls"></span>' +
       '<span class="ptro-info"></span>' +
       `<span class="ptro-bar-right">${rightBar}</span>` +
