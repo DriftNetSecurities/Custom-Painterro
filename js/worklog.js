@@ -101,7 +101,7 @@ export default class WorkLog {
     console.log(initial, "capture griddy");
     let activeToolName = "grid";
 
-    const state = {
+    const gridState = {
       sizew: this.main.size.w,
       sizeh: this.main.size.h,
       activeToolName,
@@ -109,18 +109,19 @@ export default class WorkLog {
     };
 
     if (this.current === null) {
-      state.prevGrid = null;
-      state.prevGridCount = 0;
-      this.firstGrid = state;
+      gridState.prevGrid = null;
+      gridState.prevGridCount = 0;
+      this.firstGrid = gridState;
       this.clearedCount = 0;
     } else {
       console.log(this.current);
-      state.preprevGridv = this.current;
-      state.prevGridCount = this.current.prevCount + 1;
-      this.current.next = state;
+      gridState.preprevGridv = this.current;
+      gridState.prevGridCount = this.current.prevCount + 1;
+      this.current.next = gridState;
     }
-    state.next = null;
-    this.current = state;
+    console.log(gridState);
+    gridState.next = null;
+    this.current = gridState;
     this.changed(initial);
   }
 
