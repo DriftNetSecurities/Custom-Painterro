@@ -611,7 +611,7 @@ class PainterroProc {
       '<div class="ptro-scroller">' +
       '<div class="ptro-center-table">' +
       '<div class="ptro-center-tablecell">' +
-      `<canvas  onload="drawGrid()" id="${this.id}-canvas"></canvas>` +
+      `<canvas id="${this.id}-canvas"></canvas>` +
       `<div class="ptro-substrate"></div>${cropper}` +
       "</div>" +
       "</div>" +
@@ -622,6 +622,7 @@ class PainterroProc {
         Settings.html(this) +
         this.inserter.html()
       }`;
+    this.drawGrid();
     this.baseEl.appendChild(this.wrapper);
     this.scroller = this.doc.querySelector(
       `#${this.id}-wrapper .ptro-scroller`
