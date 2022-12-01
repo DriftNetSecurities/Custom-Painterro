@@ -69,10 +69,10 @@ class PainterroProc {
         name: "SSSSSSSSSSSSS",
         hotkey: "t",
         activate: () => {
-          this.select.testFunc();
+          this.testFunc();
         },
         close: () => {
-          this.select.testFunc();
+          this.testFunc();
         },
       },
       {
