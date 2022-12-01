@@ -622,7 +622,7 @@ class PainterroProc {
         Settings.html(this) +
         this.inserter.html()
       }`;
-    this.drawGrid();
+    this.drawGrid(this.id);
     this.baseEl.appendChild(this.wrapper);
     this.scroller = this.doc.querySelector(
       `#${this.id}-wrapper .ptro-scroller`
@@ -860,11 +860,12 @@ class PainterroProc {
     return this.getElemByIdSafe(tool.buttonId);
   }
   drawGridLines(cnv, lineOptions) {
+    console.log(cnv, lineOptions);
     var iWidth = cnv.width;
     var iHeight = cnv.height;
 
     var ctx = cnv.getContext("2d");
-
+    console.log(ctx);
     ctx.strokeStyle = lineOptions.color;
     ctx.strokeWidth = 1;
 
@@ -897,8 +898,8 @@ class PainterroProc {
 
     return;
   }
-  drawGrid() {
-    var cnv = document.getElementById(this.id);
+  drawGrid(id) {
+    var cnv = document.getElementById(id);
 
     var gridOptions = {
       minorLines: {
