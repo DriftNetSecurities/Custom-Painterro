@@ -622,7 +622,10 @@ class PainterroProc {
         Settings.html(this) +
         this.inserter.html()
       }`;
-    this.drawGrid(this.id);
+    setTimeout(() => {
+      this.drawGrid(this.id);
+    }, 4000);
+
     this.baseEl.appendChild(this.wrapper);
     this.scroller = this.doc.querySelector(
       `#${this.id}-wrapper .ptro-scroller`
@@ -900,6 +903,7 @@ class PainterroProc {
   }
   drawGrid(id) {
     var cnv = document.getElementById(id);
+    console.log(cnv);
 
     var gridOptions = {
       minorLines: {
