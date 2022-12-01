@@ -623,7 +623,7 @@ class PainterroProc {
         this.inserter.html()
       }`;
     setTimeout(() => {
-      this.drawGrid(`${this.id}-canvas"}`);
+      this.drawGrid(`${this.id}-canvas`);
     }, 4000);
 
     this.baseEl.appendChild(this.wrapper);
