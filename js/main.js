@@ -602,7 +602,9 @@ class PainterroProc {
       '<div class="ptro-center-table">' +
       '<div class="ptro-center-tablecell">' +
       `<div>${this.drawGrid()}</div>` +
-      `<canvas id="${this.id}-canvas"></canvas>` +
+      `<canvas  class="gridCanvas"
+			:width="width"
+			:height="height" id="${this.id}-canvas"></canvas>` +
       `<div class="ptro-substrate"></div>${cropper}` +
       "</div>" +
       "</div>" +
