@@ -34,6 +34,7 @@ export default class WorkLog {
   loadWorklogFromString(str) {
     const obj = JSON.parse(str);
     if (obj) {
+      console.log(obj);
       this.clearedCount = obj.clearedCount;
       this.current = obj.current;
       this.applyState(this.current);
