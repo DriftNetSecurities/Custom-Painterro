@@ -66,16 +66,6 @@ class PainterroProc {
         },
       },
       {
-        name: "SSSSSSSSSSSSS",
-        hotkey: "t",
-        activate: () => {
-          this.testFunc();
-        },
-        close: () => {
-          this.testFunc();
-        },
-      },
-      {
         name: "crop",
         hotkey: "c",
         activate: () => {
@@ -621,7 +611,7 @@ class PainterroProc {
       '<div class="ptro-scroller">' +
       '<div class="ptro-center-table">' +
       '<div class="ptro-center-tablecell">' +
-      `<canvas id="${this.id}-canvas"></canvas>` +
+      `<canvas  onload="drawGrid()" id="${this.id}-canvas"></canvas>` +
       `<div class="ptro-substrate"></div>${cropper}` +
       "</div>" +
       "</div>" +
@@ -868,10 +858,65 @@ class PainterroProc {
   getBtnEl(tool) {
     return this.getElemByIdSafe(tool.buttonId);
   }
-  testFunc() {
-    console.log("test function ");
-    return "<div class='testStyle' >hello div </div>";
+  drawGrid() {
+    var cnv = document.getElementById(this.id);
+
+    var gridOptions = {
+      minorLines: {
+        separation: 5,
+        color: "#00FF00",
+      },
+      majorLines: {
+        separation: 30,
+        color: "#FF0000",
+      },
+    };
+
+    drawGridLines(cnv, gridOptions.minorLines);
+    drawGridLines(cnv, gridOptions.majorLines);
+
+    return;
   }
+
+  drawGridLines(cnv, lineOptions) {
+    var iWidth = cnv.width;
+    var iHeight = cnv.height;
+
+    var ctx = cnv.getContext("2d");
+
+    ctx.strokeStyle = lineOptions.color;
+    ctx.strokeWidth = 1;
+
+    ctx.beginPath();
+
+    var iCount = null;
+    var i = null;
+    var x = null;
+    var y = null;
+
+    iCount = Math.floor(iWidth / lineOptions.separation);
+
+    for (i = 1; i <= iCount; i++) {
+      x = i * lineOptions.separation;
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, iHeight);
+      ctx.stroke();
+    }
+
+    iCount = Math.floor(iHeight / lineOptions.separation);
+
+    for (i = 1; i <= iCount; i++) {
+      y = i * lineOptions.separation;
+      ctx.moveTo(0, y);
+      ctx.lineTo(iWidth, y);
+      ctx.stroke();
+    }
+
+    ctx.closePath();
+
+    return;
+  }
+
   save() {
     if (this.saving) {
       return this;
