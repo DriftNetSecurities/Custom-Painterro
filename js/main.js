@@ -65,6 +65,25 @@ class PainterroProc {
           this.closeActiveTool();
         },
       },
+      {
+        name: "SSSSSSSSSSSSS",
+        hotkey: "sss",
+        activate: () => {
+          this.select.testFunc();
+        },
+        close: () => {
+          this.select.testFunc();
+        },
+      },
+      {
+        name: "crop",
+        hotkey: "c",
+        activate: () => {
+          if (this.initText) this.wrapper.click();
+          this.select.doCrop();
+          this.closeActiveTool();
+        },
+      },
       // {
       // name: "pixelize",
       // hotkey: "p",
@@ -603,7 +622,6 @@ class PainterroProc {
       '<div class="ptro-center-table">' +
       '<div class="ptro-center-tablecell">' +
       `<canvas id="${this.id}-canvas"></canvas>` +
-      `${this.testFunc()}` +
       `<div class="ptro-substrate"></div>${cropper}` +
       "</div>" +
       "</div>" +
