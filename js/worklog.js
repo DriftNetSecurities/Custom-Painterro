@@ -99,14 +99,18 @@ export default class WorkLog {
   }
 
   captureGrid(initial) {
-    console.log(initial, "capture griddy");
     let activeToolName = "grid";
 
     const gridState = {
-      sizew: this.main.size.w,
-      sizeh: this.main.size.h,
+      sizew: this.gridMain.size.w,
+      sizeh: this.gridMain.size.h,
       activeToolName,
-      data: this.ctx.getImageData(0, 0, this.main.size.w, this.main.size.h),
+      data: this.ctx.getImageData(
+        0,
+        0,
+        this.gridMain.size.w,
+        this.gridMain.size.h
+      ),
     };
 
     if (this.currentGrid === null) {
