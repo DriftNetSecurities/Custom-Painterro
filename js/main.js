@@ -876,7 +876,8 @@ class PainterroProc {
     var i = null;
     var x = null;
     var y = null;
-
+    let coordinatesXArr = [];
+    let coordinatesYArr = [];
     iCount = Math.floor(iWidth / lineOptions.separation);
 
     for (i = 1; i <= iCount; i++) {
@@ -884,6 +885,7 @@ class PainterroProc {
       ctx.moveTo(x, 0);
       ctx.lineTo(x, iHeight);
       ctx.stroke();
+      coordinatesXArr.push(x);
     }
 
     iCount = Math.floor(iHeight / lineOptions.separation);
@@ -893,8 +895,10 @@ class PainterroProc {
       ctx.moveTo(0, y);
       ctx.lineTo(iWidth, y);
       ctx.stroke();
+      coordinatesYArr.push(y);
     }
-
+    console.log(coordinatesXArr);
+    console.log(coordinatesYArr);
     ctx.closePath();
 
     return;
