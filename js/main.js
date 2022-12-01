@@ -952,8 +952,6 @@ class PainterroProc {
   }
   drawGrid(id) {
     var cnv = document.getElementById(id);
-    console.log(this.main);
-    this.main.activeTool.name = "grid";
     var gridOptions = {
       minorLines: {
         separation: 5,

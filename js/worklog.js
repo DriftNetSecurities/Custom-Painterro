@@ -65,6 +65,7 @@ export default class WorkLog {
   }
 
   captureState(initial) {
+    console.log(initial, "capture state");
     let activeToolName = this.main.activeTool
       ? this.main.activeTool.name
       : null;
@@ -86,6 +87,7 @@ export default class WorkLog {
       this.first = state;
       this.clearedCount = 0;
     } else {
+      console.log(this.current);
       state.prev = this.current;
       state.prevCount = this.current.prevCount + 1;
       this.current.next = state;
