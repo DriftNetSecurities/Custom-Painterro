@@ -870,7 +870,6 @@ class PainterroProc {
   }
   testFunc() {
     console.log("test function ");
-    return <div>hello this is a test function </div>;
   }
   save() {
     if (this.saving) {
