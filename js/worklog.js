@@ -144,6 +144,7 @@ export default class WorkLog {
     if (this.current.prev !== null) {
       let currentToolName = this.current.activeToolName;
       this.current = this.current.prev;
+      this.currentGrid = this.currentGrid;
       this.applyState(this.current);
       this.changed(false);
       if (currentToolName) {
@@ -157,6 +158,7 @@ export default class WorkLog {
         this.main.params.onUndo(this.current);
       }
     }
+    console.log(this.currentGrid);
   }
 
   redoState() {
