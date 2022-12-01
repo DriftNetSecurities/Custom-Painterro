@@ -140,7 +140,7 @@ export default class WorkLog {
   }
 
   undoState() {
-    if (this.current.prev !== null && !gridState) {
+    if (this.current.prev !== null && this.current.prevGrid !== null) {
       let currentToolName = this.current.activeToolName;
       this.current = this.current.prev;
       console.log(this.current);
