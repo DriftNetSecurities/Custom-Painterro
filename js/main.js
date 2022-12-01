@@ -470,14 +470,7 @@ class PainterroProc {
           input.click();
         },
       },
-      {
-        name: "test",
-        right: true,
-        activate: () => {
-          if (this.initText) this.wrapper.click();
-          this.testFunc();
-        },
-      },
+
       {
         name: "close",
         hotkey: () => (this.params.hideByEsc ? "esc" : false),
@@ -610,6 +603,7 @@ class PainterroProc {
       '<div class="ptro-center-table">' +
       '<div class="ptro-center-tablecell">' +
       `<canvas id="${this.id}-canvas"></canvas>` +
+      `${this.testFunc()}` +
       `<div class="ptro-substrate"></div>${cropper}` +
       "</div>" +
       "</div>" +
