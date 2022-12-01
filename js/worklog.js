@@ -2,6 +2,7 @@ export default class WorkLog {
   constructor(main, changedHandler) {
     this.main = main;
     this.current = null;
+    this.currentGrid = null;
     this.changedHandler = changedHandler;
     this.empty = true;
     this.clean = true;
@@ -140,9 +141,10 @@ export default class WorkLog {
   }
 
   undoState() {
-    if (this.current.prev !== null && this.current.prevGrid !== null) {
+    console.log(this.current);
+    if (this.current.prev !== null && this.current) {
       let currentToolName = this.current.activeToolName;
-      this.current = this.current.prev;
+      this.current = this?.current?.prev;
       console.log(this.current);
       this.applyState(this.current);
       this.changed(false);
