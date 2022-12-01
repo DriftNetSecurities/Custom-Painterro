@@ -624,7 +624,7 @@ class PainterroProc {
       }`;
     setTimeout(() => {
       this.drawGrid(`${this.id}-canvas`);
-    }, 4000);
+    }, 10);
 
     this.baseEl.appendChild(this.wrapper);
     this.scroller = this.doc.querySelector(
@@ -863,12 +863,10 @@ class PainterroProc {
     return this.getElemByIdSafe(tool.buttonId);
   }
   drawGridLines(cnv, lineOptions) {
-    console.log(cnv, lineOptions);
     var iWidth = cnv.width;
     var iHeight = cnv.height;
 
     var ctx = cnv.getContext("2d");
-    console.log(ctx);
     ctx.strokeStyle = lineOptions.color;
     ctx.strokeWidth = 1;
 
@@ -908,11 +906,11 @@ class PainterroProc {
     var gridOptions = {
       minorLines: {
         separation: 5,
-        color: "#00FF00",
+        color: "#FFFFFF",
       },
       majorLines: {
-        separation: 30,
-        color: "#FF0000",
+        separation: 50,
+        color: "#000000",
       },
     };
 
