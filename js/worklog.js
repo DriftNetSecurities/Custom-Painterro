@@ -43,11 +43,13 @@ export default class WorkLog {
   }
 
   changed(initial) {
+    console.log(initial);
     if (
       this.current.prevCount - this.clearedCount >
       this.main.params.worklogLimit
     ) {
       this.first = this.first.next;
+      console.log(this.first);
       this.first.prev = null;
       this.clearedCount += 1;
     }
@@ -56,6 +58,8 @@ export default class WorkLog {
       last: this.current.next === null,
       initial,
     });
+
+    console.log(this.changedHandler);
     this.empty = initial;
     this.clean = false;
   }
@@ -66,6 +70,7 @@ export default class WorkLog {
       : null;
     if (this.main.params.NON_SELECTABLE_TOOLS.includes(activeToolName)) {
       activeToolName = this.main.defaultTool.name;
+      console.log(activeToolName);
     }
 
     const state = {
@@ -74,6 +79,7 @@ export default class WorkLog {
       activeToolName,
       data: this.ctx.getImageData(0, 0, this.main.size.w, this.main.size.h),
     };
+    console.log(state);
     if (this.current === null) {
       state.prev = null;
       state.prevCount = 0;
