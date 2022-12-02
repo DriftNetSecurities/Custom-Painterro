@@ -943,11 +943,13 @@ class PainterroProc {
       ctx.stroke();
       tempMajorYCords.push(y);
     }
-    console.log(this.worklog.originalImage.getImageData(0, 0, iWidth, iHeight));
-    console.log(ctx.getImageData(0, 0, iWidth, iHeight));
-    console.log(tempMajorXCords);
-    console.log(tempMajorYCords);
+
     ctx.closePath();
+    console.log(
+      this.worklog.originalImage.getImageData(0, 0, iWidth, iHeight),
+      "original image"
+    );
+    console.log(ctx.getImageData(0, 0, iWidth, iHeight), "ctx");
 
     return;
   }
