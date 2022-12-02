@@ -913,6 +913,7 @@ class PainterroProc {
     var iHeight = cnv.height;
 
     var ctx = cnv.getContext("2d");
+    console.log(ctx.getImageData(0, 0, iWidth, iHeight), "original image");
     ctx.strokeStyle = lineOptions.color;
     ctx.strokeWidth = 1;
 
@@ -945,10 +946,7 @@ class PainterroProc {
     }
 
     ctx.closePath();
-    console.log(
-      this.worklog.originalImage.getImageData(0, 0, iWidth, iHeight),
-      "original image"
-    );
+
     console.log(ctx.getImageData(0, 0, iWidth, iHeight), "ctx");
 
     return;
