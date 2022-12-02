@@ -8,6 +8,14 @@ export default class WorkLog {
     this.empty = true;
     this.clean = true;
     this.ctx = main.ctx;
+
+    this.gridObject = {
+      sizew: this.main.size.w,
+      sizeh: this.main.size.h,
+      toolName: "grid",
+      data: this.ctx.getImageData(0, 0, this.main.size.w, this.main.size.h),
+    };
+    // make a global var for grid with image set it when loaded in the lib
   }
 
   getWorklogAsString(params) {
@@ -81,7 +89,9 @@ export default class WorkLog {
       activeToolName,
       data: this.ctx.getImageData(0, 0, this.main.size.w, this.main.size.h),
     };
-    console.log(state);
+    console.log(this.gridObject);
+    // take the curr state remove the global grid state from it and call captureState back
+    //and update the global var to the curr state + grid
     if (this.current === null) {
       state.prev = null;
       state.prevCount = 0;
@@ -154,8 +164,10 @@ export default class WorkLog {
     if (this.current.prev !== null) {
       let currentToolName = this.current.activeToolName;
       this.current = this.current.prev;
+      // make current prev
+      //
       this.applyGridState(this.currentGrid);
-      this.applyState(this.currentGrid);
+      this.applyState(this.current);
       this.changed(false);
       if (currentToolName) {
         this.main.closeActiveTool(true);
