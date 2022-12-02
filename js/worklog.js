@@ -8,13 +8,8 @@ export default class WorkLog {
     this.empty = true;
     this.clean = true;
     this.ctx = main.ctx;
-
-    this.gridObject = {
-      sizew: this.main.size.w,
-      sizeh: this.main.size.h,
-      toolName: "grid",
-      data: this.ctx.getImageData(0, 0, this.main.size.w, this.main.size.h),
-    };
+    this.gridObject = null;
+    this.originalImage = main.ctx;
     // make a global var for grid with image set it when loaded in the lib
   }
 

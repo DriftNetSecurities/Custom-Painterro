@@ -866,48 +866,48 @@ class PainterroProc {
   getBtnEl(tool) {
     return this.getElemByIdSafe(tool.buttonId);
   }
-  drawMinorGridLines(cnv, lineOptions) {
-    var iWidth = cnv.width;
-    var iHeight = cnv.height;
+  // drawMinorGridLines(cnv, lineOptions) {
+  //   var iWidth = cnv.width;
+  //   var iHeight = cnv.height;
 
-    var ctx = cnv.getContext("2d");
-    ctx.strokeStyle = lineOptions.color;
-    ctx.strokeWidth = 1;
+  //   var ctx = cnv.getContext("2d");
+  //   ctx.strokeStyle = lineOptions.color;
+  //   ctx.strokeWidth = 1;
 
-    ctx.beginPath();
+  //   ctx.beginPath();
 
-    var iCount = null;
-    var i = null;
-    var x = null;
-    var y = null;
-    let minorXCords = [];
-    let minorYCords = [];
-    iCount = Math.floor(iWidth / lineOptions.separation);
+  //   var iCount = null;
+  //   var i = null;
+  //   var x = null;
+  //   var y = null;
+  //   let minorXCords = [];
+  //   let minorYCords = [];
+  //   iCount = Math.floor(iWidth / lineOptions.separation);
 
-    for (i = 1; i <= iCount; i++) {
-      x = i * lineOptions.separation;
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, iHeight);
-      ctx.stroke();
-      minorXCords.push(x);
-    }
+  //   for (i = 1; i <= iCount; i++) {
+  //     x = i * lineOptions.separation;
+  //     ctx.moveTo(x, 0);
+  //     ctx.lineTo(x, iHeight);
+  //     ctx.stroke();
+  //     minorXCords.push(x);
+  //   }
 
-    iCount = Math.floor(iHeight / lineOptions.separation);
+  //   iCount = Math.floor(iHeight / lineOptions.separation);
 
-    for (i = 1; i <= iCount; i++) {
-      y = i * lineOptions.separation;
-      ctx.moveTo(0, y);
-      ctx.lineTo(iWidth, y);
-      ctx.stroke();
-      minorYCords.push(y);
-    }
-    console.log(ctx, "minor");
-    console.log(minorXCords);
-    console.log(minorYCords);
-    ctx.closePath();
+  //   for (i = 1; i <= iCount; i++) {
+  //     y = i * lineOptions.separation;
+  //     ctx.moveTo(0, y);
+  //     ctx.lineTo(iWidth, y);
+  //     ctx.stroke();
+  //     minorYCords.push(y);
+  //   }
+  //   console.log(ctx, "minor");
+  //   console.log(minorXCords);
+  //   console.log(minorYCords);
+  //   ctx.closePath();
 
-    return;
-  }
+  //   return;
+  // }
   drawMajorGridLines(cnv, lineOptions) {
     var iWidth = cnv.width;
     var iHeight = cnv.height;
@@ -943,6 +943,7 @@ class PainterroProc {
       ctx.stroke();
       tempMajorYCords.push(y);
     }
+    console.log(this.worklog.originalImage);
     console.log(ctx);
     console.log(tempMajorXCords);
     console.log(tempMajorYCords);
@@ -953,19 +954,21 @@ class PainterroProc {
   drawGrid(id) {
     var cnv = document.getElementById(id);
     var gridOptions = {
-      minorLines: {
-        separation: 5,
-        color: "transparent",
-      },
+      // minorLines: {
+      //   separation: 5,
+      //   color: "transparent",
+      // },
       majorLines: {
         separation: 50,
         color: "#000000",
       },
     };
 
-    this.drawMinorGridLines(cnv, gridOptions.minorLines);
+    // this.drawMinorGridLines(cnv, gridOptions.minorLines);
     this.drawMajorGridLines(cnv, gridOptions.majorLines);
     this.worklog.captureGrid();
+    // capture grid
+    // capture image with no grid
     return;
   }
 
